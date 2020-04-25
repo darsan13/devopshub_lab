@@ -1,0 +1,29 @@
+1. Download and instll following utilities and application
+
+putty: https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe
+
+superputty: https://puttygen.com/download.php?val=61
+
+Notepadd++: https://notepad-plus-plus.org/downloads/
+
+Oracle VirtualBox: https://www.virtualbox.org/wiki/Downloads
+
+Vagrant: https://www.vagrantup.com/downloads.html
+
+gitbash: https://git-scm.com/download/win
+
+3. Open gitbash after installation, use the bellow command to clone the repository
+	
+	git clone https://github.com/helpdevops/devopshub_lab.git
+	
+	Note: identify the path
+
+2. Open cmd as administrator from windows
+
+	cd <path identified in above step>
+
+	cd devops-server
+
+	vagrant version
+
+	vagrant up
