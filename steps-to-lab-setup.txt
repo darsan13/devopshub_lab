@@ -16,14 +16,22 @@ gitbash: https://git-scm.com/download/win
 	
 	git clone https://github.com/helpdevops/devopshub_lab.git
 	
-	Note: identify the path
+		Note: identify the path
 
 2. Open cmd as administrator from windows
 
 	cd <path identified in above step>
 
-	cd devops-server
+	cd devopshub_lab
+
+	cd devops-lab-infra
 
 	vagrant version
 
 	vagrant up
+
+	vagrant status
+
+		Note: You will see 2 machines running "devops_server" and "devops_lient"
+
+	vagrant ssh devops_server
