@@ -1,0 +1,106 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$setup_server = <<SCRIPT
+
+# Install epel and utilities
+
+yum install -y epel-release net-tools wget java*
+
+# Enable root login in ssh configuration
+
+sed -i "s/^PermitRootLogin no/PermitRootLogin yes/g" /etc/ssh/sshd_config
+sed -i "s/^PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+service sshd restart
+
+# Install git and ansible
+
+yum install -y git ansible
+
+# Install Jenkins
+
+curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
+
+rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+yum install -y jenkins
+
+systemctl start jenkins
+
+systemctl enable jenkins
+
+# Setting up jfrog artifactory
+# Install jfrog
+
+curl -sL https://bintray.com/jfrog/artifactory-rpms/rpm | sudo tee /etc/yum.repos.d/bintray-jfrog-artifactory-rpms.repo
+
+yum -y install jfrog-artifactory-oss wget
+
+echo "export ARTIFACTORY_HOME=/opt/jfrog/artifactory" | sudo tee -a /etc/profile
+source /etc/profile
+env | grep ARTIFACTORY_HOME
+
+systemctl start artifactory
+
+# URL: http://IP:8082
+
+# default login: admin/password
+
+SCRIPT
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "centos/7"
+  config.vm.hostname = "devops-server"
+  # config.vm.network "private_network", ip: "192.168.2.10"
+  config.vm.network "public_network"
+  config.vm.provision "shell", inline:$setup_server
+  
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+  end
+  
+  config.vm.define "devops_server" do |devops_erver|
+  end
+
+
+
+$setup_client = <<SCRIPT
+
+# Install network tools
+
+yum install -y net-tools wget
+
+# Enable root login in ssh configuration
+
+sed -i "s/^PermitRootLogin no/PermitRootLogin yes/g" /etc/ssh/sshd_config
+sed -i "s/^PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+service sshd restart
+
+# Install tomcat
+
+#yum instll -y tomcat
+
+#yum install -y tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp
+
+#systemctl start tomcat
+
+#systemctl enable tomcat
+
+# edit /usr/share/tomcat/conf/tomcat-users.xml
+# uncoment the roles and user lines and add password
+
+SCRIPT
+
+  config.vm.box = "centos/7"
+  config.vm.hostname = "devops-client"
+  # config.vm.network "private_network", ip: "192.168.2.10"
+  config.vm.network "public_network"
+  config.vm.provision "shell", inline:$setup_client
+  
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+  end
+  
+  config.vm.define "devops_client" do |devops_client|
+  end
+end
