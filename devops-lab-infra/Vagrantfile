@@ -32,15 +32,15 @@ systemctl enable jenkins
 # Setting up jfrog artifactory
 # Install jfrog
 
-curl -sL https://bintray.com/jfrog/artifactory-rpms/rpm | sudo tee /etc/yum.repos.d/bintray-jfrog-artifactory-rpms.repo
+#curl -sL https://bintray.com/jfrog/artifactory-rpms/rpm | sudo tee /etc/yum.repos.d/bintray-jfrog-artifactory-rpms.repo
 
-yum -y install jfrog-artifactory-oss wget
+#yum -y install jfrog-artifactory-oss wget
 
-echo "export ARTIFACTORY_HOME=/opt/jfrog/artifactory" | sudo tee -a /etc/profile
-source /etc/profile
-env | grep ARTIFACTORY_HOME
+#echo "export ARTIFACTORY_HOME=/opt/jfrog/artifactory" | sudo tee -a /etc/profile
+#source /etc/profile
+#env | grep ARTIFACTORY_HOME
 
-systemctl start artifactory
+#systemctl start artifactory
 
 # URL: http://IP:8082
 
