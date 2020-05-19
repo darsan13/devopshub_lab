@@ -68,7 +68,7 @@ $setup_client = <<SCRIPT
 
 # Install network tools
 
-yum install -y net-tools wget
+yum install -y epel-release net-tools wget yum-utils
 
 # Enable root login in ssh configuration
 
@@ -76,18 +76,13 @@ sed -i "s/^PermitRootLogin no/PermitRootLogin yes/g" /etc/ssh/sshd_config
 sed -i "s/^PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
 service sshd restart
 
-# Install tomcat
+# Install docker
 
-#yum instll -y tomcat
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-#yum install -y tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp
+yum install -y docker-ce docker-ce-cli containerd.io
 
-#systemctl start tomcat
-
-#systemctl enable tomcat
-
-# edit /usr/share/tomcat/conf/tomcat-users.xml
-# uncoment the roles and user lines and add password
+systemctl start docker
 
 SCRIPT
 

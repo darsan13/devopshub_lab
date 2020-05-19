@@ -1,0 +1,8 @@
+What is git?
+What is ‘head’ in git and how many heads can be created in a repository?
+What is the purpose of branching in GIT?
+What is a ‘conflict’ in git?
+How can conflict in git resolved?
+What is git merging
+What is the difference between ‘git remote’ and ‘git clone’?
+How do you check differences in 2 git commits

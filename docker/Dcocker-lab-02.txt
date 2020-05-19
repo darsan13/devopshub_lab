@@ -1,0 +1,82 @@
+Docker Networking
+==================
+
+docker network
+docker network ls
+docker network inspect bridge
+docker info
+brctl show
+ip a
+
+Bridge Networking:
+------------------
+docker run -dt ubuntu sleep infinity
+docker ps
+docker network inspect bridge
+ping 172.17.0.2
+docker ps
+docker exec -it <containerid> /bin/bash
+apt-get update && apt-get install -y iputils-ping
+ping -c5 ping google.com
+exit
+docker stop  fc7b7684ef69
+
+Configure NAT for external connectivity:
+----------------------------------------
+docker run --name web1 -d -p 8080:80 nginx
+docker ps
+curl 127.0.0.1:8080
+
+Overlay Networking:
+-------------------
+
+Create your first image
+=======================
+The goal of this exercise is to create a Docker image which will run a Flask app.
+
+    Download the flask app
+    Write a Dockerfile
+    Build the image
+    Run your image
+    Dockerfile commands summary
+
+git clone https://github.com/helpdevops/flask-app.git
+docker image build -t helpdevops/myfirstapp .
+docker image list
+
+docker container run -p 8888:5000 --name myfirstapp pds/myfirstapp
+docker container stop myfirstapp
+docker container rm myfirstapp
+docker ps
+docker container rm myfirstapp
+
+
+Deploying Multitier Application using docker swarm
+==================================================
+
+docker swarm init --advertise-addr $(hostname -i)
+
+docker node ls
+
+git clone https://github.com/helpdevops/voting-app.git
+
+docker stack deploy --compose-file=docker-stack.yml voting_stack
+
+docker stack ls
+
+docker stack services voting_stack
+
+IP:8080
+
+
+Docker machine
+==============
+curl -L https://github.com/docker/machine/releases/download/v0.12.2/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine
+
+chmod +x /tmp/docker-machine
+
+cp /tmp/docker-machine /usr/local/bin/docker-machine
+
+docker-machine version
+
+docker-machine create --driver none --url=tcp://50.134.234.20:2376 custombox
