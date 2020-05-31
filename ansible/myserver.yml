@@ -1,0 +1,7 @@
+---
+- hosts: web
+  roles:
+    - ntp
+    - apache
+...
+

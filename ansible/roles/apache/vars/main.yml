@@ -1,0 +1,4 @@
+---
+# vars file for apache
+
+http_port: 8080

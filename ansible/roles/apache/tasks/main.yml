@@ -1,0 +1,27 @@
+---
+
+- name: Install apache
+  yum:
+    name: httpd
+    state: present
+
+- name: Start apache
+  service:
+    name: httpd
+    state: started
+
+- name: Create custom index.html
+  copy:
+    src: index.html
+    dest: /var/www/html/index.html
+
+- name: Reconfgire apache port
+  template:
+    src: httpd.conf.j2
+    dest: /etc/httpd/conf/httpd.conf
+  notify: 
+    - restart apache
+
+
+...
+
