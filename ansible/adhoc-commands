@@ -1,0 +1,4 @@
+ansible web -m ping
+ansible web -m setup
+ansible web -m yum -a "name=httpd state=installed"
+ansible web -m service -a "name=httpd state=started"
