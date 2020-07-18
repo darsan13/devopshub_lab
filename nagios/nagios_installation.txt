@@ -1,0 +1,20 @@
+yum install httpd
+
+vi /etc/yum.repos.d/nagios.repo
+
+[nagios]
+name=Nagios repository
+baseurl=ftp://195.220.108.108/linux/epel/7/x86_64/
+enabled=1
+gpgcheck=0
+
+
+yum install nagios nagios-common nagios-plugins-all
+
+htpasswd -c /etc/nagios/passwd nagiosadmin
+
+systemctl start httpd
+systemctl enable httpd
+
+systemctl start nagios
+systemctl enable nagios
