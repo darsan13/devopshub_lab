@@ -1,0 +1,100 @@
+Install Docker
+===============
+
+yum install -y yum-utils
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install -y docker-ce docker-ce-cli containerd.io
+systemctl start docker
+
+Quick Test Docker
+=================
+docker version
+docker run hello-world
+
+Docker Images
+=============
+docker images
+docker run training/webapp
+docker inspect ImageName
+docker rmi ImageID
+
+docker image pull alpine
+docker run alpine ls -l
+
+docker image pull centos
+docker run centos cat /etc/redhat-release
+
+Docker ps, Container & exec
+===========================
+docker container ls
+docker container ls -a
+
+docker container run -it centos /bin/sh
+
+docker container run -d seqvence/static-site
+
+docker ps / docker container ls
+
+docker top ContainerID
+docker stats ContainerID
+docker pause ContainerID
+docker unpause ContainerID
+docker stop ContainerID
+docker rm ContainerID
+docker kill ContainerID
+
+docker container run --name static-site -e AUTHOR="docker-training" -d -P seqvence/static-site
+
+	
+    -d will create a container with the process detached from our terminal
+    -P will publish all the exposed container ports to random ports on the Docker host
+    -e is how you pass environment variables to the container
+    --name allows you to specify a container name
+    AUTHOR is the environment variable name and Your Name is the value that you can pass
+
+
+docker container port static-site
+
+http://[YourDockerIP]:32773
+
+
+Run Second webserver: 
+
+docker container run --name static-site-2 -e AUTHOR="Docker-Training" -d -p 8888:80 seqvence/static-site
+
+docker container stop static-site
+docker container rm -f static-site
+docker container ls
+
+Save you image
+================
+docker run -t -i -d  centos
+docker container exec -it 06615a8f90b8 /bin/bash
+ yum update -y
+ exit
+docker commit 06615a8f90b8 mycentos:updated
+docker container run -itd mycentos:updated /bin/sh
+docker exec -ti 06615a8f90b8 /bin/bash
+
+
+Running a Tomcat container
+==========================
+
+docker image pull tomcat:8.0
+docker images
+docker container create --publish 8082:8080 --name my-tomcat-container tomcat:8.0
+docker container ls -a
+docker container start my-tomcat-container
+docker container exec -it my-tomcat-container bash
+docker cp webapp.war my-tomcat-container:/usr/local/tomcat/webapps/
+
+
+Create a Image using Docker file
+================================
+
+vi Dockerfile
+# Use the official tomcat 8.0 as base
+FROM tomcat:8.0
+EXPOSE 8080
+COPY ./webapp.war /usr/local/tomcat/webapps/
+

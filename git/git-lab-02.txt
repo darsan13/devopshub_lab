@@ -1,0 +1,48 @@
+GIT Pull OPerations:
+--------------------
+cd /c/users/abc/ (the abc user must be present, if not create folder for simulation)
+git clone git@<IP of git server>:/home/git/devops-project
+vi filename (Add some content)
+git add filename
+git commit -m "added filename"
+git push origin master
+
+switch back to the previous user:
+
+git diff master origin/master
+git pull
+git log
+
+GIT Branching OPerations:
+-------------------------
+
+git clone git@<IP of git server>:/home/git/devops-project
+cd devops-project/
+git branch
+git branch new-feature
+git branch
+git checkout new-feature
+git branch
+ll
+touch newfeature
+vi newfeature (Add some content)
+git status
+git add newfeature
+git status
+git commit -m "New feature added"
+git push origin new-feature
+
+GIT Merging OPerations:
+-----------------------
+git checkout master
+git status
+git branch
+ll
+git merge new-feature
+ll
+git branch -d new-feature
+git branch
+ll
+git push origin master
+git status
+git log

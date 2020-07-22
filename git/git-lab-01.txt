@@ -1,0 +1,35 @@
+on the devops-server
+--------------------
+
+useradd git
+
+passwd git
+
+git init --bare devops-project
+
+
+on your local machine (git bash)
+--------------------------------
+
+mkdir test
+
+cd test
+
+git clone git@<IP>:/home/git/devops-project
+	Note: Replace the IP with actual IP of your system
+
+cd devops-project
+
+vi welcome (add content, save and exit)
+
+git status
+
+git add *
+
+git commit -m "My first commit"
+
+git push origin master
+
+git status
+
+git log
