@@ -62,6 +62,23 @@ service sshd restart
 
 SCRIPT
 
+$setup_tomcat = <<SCRIPT
+
+# Install tomcat
+
+#yum instll -y tomcat
+
+#yum install -y tomcat-webapps tomcat-admin-webapps tomcat-docs-webapp
+
+#systemctl start tomcat
+
+#systemctl enable tomcat
+
+# edit /usr/share/tomcat/conf/tomcat-users.xml
+# uncoment the roles and user lines and add password
+
+SCRIPT
+
 $setup_docker == <<SCRIPT
 
 # Install docker
