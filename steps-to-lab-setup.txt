@@ -14,7 +14,7 @@ gitbash: https://git-scm.com/download/win
 
 3. Open gitbash after installation, use the bellow command to clone the repository
 	
-	git clone https://github.com/helpdevops/devopshub_lab.git
+	git clone https://github.com/DevOpsHubIN/dxc_training.git
 	
 		Note: identify the path
 
@@ -22,9 +22,9 @@ gitbash: https://git-scm.com/download/win
 
 	cd <path identified in above step>
 
-	cd devopshub_lab
+	cd dxc_training
 
-	cd devops-lab-infra
+	cd setup_lab
 
 	vagrant version
 
@@ -32,6 +32,6 @@ gitbash: https://git-scm.com/download/win
 
 	vagrant status
 
-		Note: You will see 2 machines running "devops_server" and "devops_lient"
+		Note: You will see 3 machines running "devops_server" and "devops_lient"
 
-	vagrant ssh devops_server
+	vagrant ssh <vmname>

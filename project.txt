@@ -1,0 +1,19 @@
+git hub account
+	create a repository
+	configure gitbash to work locally
+
+Create 2 instances on aws
+
+install jenkins
+configure jenikns
+	install required plugins
+		git, ansible
+	configure with git hub
+	confgure with ansible
+
+install ansible
+	write playbooks
+	push playbook to github
+
+	
+	
