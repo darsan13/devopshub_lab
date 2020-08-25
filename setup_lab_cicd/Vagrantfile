@@ -2,9 +2,9 @@
 
 $setup_server = <<SCRIPT
 
-# Install epel and utilities
+# Install java, epel and utilities
 
-yum install -y epel-release net-tools wget
+yum install -y java epel-release net-tools wget
 
 # Enable root login in ssh configuration
 
@@ -46,9 +46,7 @@ systemctl enable jenkins
 
 SCRIPT
 
-# Client script
-
-$setup_client = <<SCRIPT
+$setup_docker == <<SCRIPT
 
 # Install network tools
 
@@ -60,9 +58,33 @@ sed -i "s/^PermitRootLogin no/PermitRootLogin yes/g" /etc/ssh/sshd_config
 sed -i "s/^PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
 service sshd restart
 
+# Install docker
+
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+yum install -y docker-ce docker-ce-cli containerd.io
+
+systemctl start docker
+
 SCRIPT
 
-$setup_tomcat = <<SCRIPT
+
+# Client script
+
+$setup_client = <<SCRIPT
+
+# Install network tools
+
+yum install -y java epel-release net-tools wget
+
+# Enable root login in ssh configuration
+
+sed -i "s/^PermitRootLogin no/PermitRootLogin yes/g" /etc/ssh/sshd_config
+sed -i "s/^PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+service sshd restart
+
+SCRIPT
+
 
 # Install tomcat
 
@@ -76,20 +98,6 @@ $setup_tomcat = <<SCRIPT
 
 # edit /usr/share/tomcat/conf/tomcat-users.xml
 # uncoment the roles and user lines and add password
-
-SCRIPT
-
-$setup_docker == <<SCRIPT
-
-# Install docker
-
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-yum install -y docker-ce docker-ce-cli containerd.io
-
-systemctl start docker
-
-SCRIPT
 
 
 Vagrant.configure("2") do |config|
@@ -111,7 +119,6 @@ Vagrant.configure("2") do |config|
 	subconfig.vm.hostname = "node1"
 	subconfig.vm.network "private_network", ip: "192.168.2.30"
 	subconfig.vm.provision "shell", inline:$setup_client
-	subconfig.vm.provision "shell", inline:$setup_docker
   
 	subconfig.vm.provider "virtualbox" do |vb|
 		vb.memory = "1024"
@@ -123,7 +130,7 @@ Vagrant.configure("2") do |config|
 	subconfig.vm.hostname = "node2"
 	subconfig.vm.network "private_network", ip: "192.168.2.40"
 	subconfig.vm.provision "shell", inline:$setup_client
-  
+	
 	subconfig.vm.provider "virtualbox" do |vb|
 		vb.memory = "1024"
 	end
