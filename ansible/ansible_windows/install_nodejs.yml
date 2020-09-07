@@ -1,0 +1,14 @@
+- name: Create directory structure
+  win_file:
+    path: C:\apps
+    state: directory
+
+- name: Download NPM
+  win_get_url:
+    url: https://nodejs.org/dist/v12.18.3/node-v12.18.3-x64.msi
+    dest: C:\apps
+
+- name: Install NPM
+  win_package:
+    path: C:\apps\node-v12.18.3-x64.msi
+    state: present
