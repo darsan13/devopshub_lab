@@ -75,7 +75,7 @@ service sshd restart
 
 SCRIPT
 
-$setup_docker == <<SCRIPT
+$setup_docker = <<SCRIPT
 
 # Install network tools
 
