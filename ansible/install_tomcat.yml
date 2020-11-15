@@ -1,5 +1,7 @@
 ---
 - hosts: web
   become: true
+  vars:
+    ansible_become_pass: "Jenkins@dmin"
   roles:
     - tomcat
