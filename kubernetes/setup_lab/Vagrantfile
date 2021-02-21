@@ -4,7 +4,7 @@ $setup_server = <<SCRIPT
 
 # Install epel and utilities
 
-yum install -y epel-release net-tools wget vim conntrack-tools
+yum install -y epel-release net-tools wget vim conntrack-tools git unzip
 
 # Enable root login in ssh configuration
 
