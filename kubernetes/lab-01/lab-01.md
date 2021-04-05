@@ -8,7 +8,8 @@
 4. Understand the basics of the deployment and service
 5. Understand what we created
 6. Create a simple single yaml file for deployment and service
-7. Verify that the application is working as expected
+7. Run the yaml file in minikube
+8. Verify that the application is working as expected
 
 
 #### Commands to run
