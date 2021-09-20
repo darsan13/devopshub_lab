@@ -1,6 +1,6 @@
 # k8s minicube Master script
 
-$setup_server = <<SCRIPT
+$setup_minikube = <<SCRIPT
 
 # Install epel and utilities
 
@@ -20,6 +20,7 @@ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce
 
 yum install -y docker-ce docker-ce-cli containerd.io
 
+systemctl enable docker
 systemctl start docker
 
 #Download and install minikube latest
@@ -28,7 +29,7 @@ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-latest
 
 yum install -y minikube-latest.x86_64.rpm
 
-minikube config set driver none
+minikube config set driver docker
 
 #Install kubectl
 
@@ -44,8 +45,6 @@ EOF
 
 yum install -y kubectl
 
-minikube start
-
 
 SCRIPT
 
@@ -55,7 +54,7 @@ Vagrant.configure("2") do |config|
 	subconfig.vm.hostname = "k8s-master"
 #    subconfig.vm.network "public_network"
 	subconfig.vm.network "private_network", ip: "192.168.2.20"
-    subconfig.vm.provision "shell", inline:$setup_server
+    subconfig.vm.provision "shell", inline:$setup_minikube
 	
 	subconfig.vm.provider "virtualbox" do |vb|
 		vb.memory = "4096"
