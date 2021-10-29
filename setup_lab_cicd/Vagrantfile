@@ -17,13 +17,9 @@ service sshd restart
 yum install -y git ansible
 
 wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
-
-rpm --import rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-
-yum install -y jenkins
-
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+yum install jenkins
 systemctl start jenkins
-
 systemctl enable jenkins
 
 # Setting up jfrog artifactory
