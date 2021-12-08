@@ -1,0 +1,34 @@
+on the target(server to be monitored)
+======================================
+
+1. yum install nrpe nagios-plugin-all -y
+2. Edit /etc/nagios/nrpe.cfg file
+3. search for allowd_hosts and add the nagios server ip
+4. start the nrpe service
+
+on Nagios server
+================
+
+1. yum install nagios-plugins-nrpe
+
+To verify the nagios server is able to connect the target host
+
+/usr/lib64/nagios/plugins/check_nrpe -H 192.168.2.40 -c check_hostname
+
+2. create the check_nrpe command in commands.cfg
+
+define command {
+    command_name    check_nrpe
+    command_line    $USER1$/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
+}
+
+3. create a service in the service.cfg file
+
+define service {
+
+    use                     local-service           ; Name of service template to use
+    host_name               master,node2
+    service_description     LOAD
+    check_command           check_nrpe!check_load
+}
+4. restart the nagios service
