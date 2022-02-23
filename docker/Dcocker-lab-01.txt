@@ -86,6 +86,12 @@ docker container create --publish 8082:8080 --name my-tomcat-container tomcat:8.
 docker container ls -a
 docker container start my-tomcat-container
 docker container exec -it my-tomcat-container bash
+#
+#If there tomcat does not start with the default container do the below steps.
+#cd /usr/loca/tomcat/
+#mv webapps webapps2
+#mv webapps.dist/ webapps
+
 docker cp webapp.war my-tomcat-container:/usr/local/tomcat/webapps/
 
 
