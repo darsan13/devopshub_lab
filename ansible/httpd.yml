@@ -1,15 +1,28 @@
 ---
-- hosts: web
+
+- name: Install apache web server.
+  hosts: webservers
+  become: yes
+
+  vars:
+    ansible_become_password: "vagrant"
 
   tasks:
 
   - name: Install apache
     yum:
       name: httpd
-      state: installed
+      state: present
 
-  - name: Start apache
+  - name: copy the index file
+    copy:
+      src: index.html
+      dest: /var/www/html/index.html
+
+  - name: start apache service
     service:
       name: httpd
       state: started
+      enabled: yes
 
+...
