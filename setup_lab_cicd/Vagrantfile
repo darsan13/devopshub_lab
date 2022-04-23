@@ -18,8 +18,8 @@ yum install -y git ansible
 
 sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo --no-check-certificate
 rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-yum install jenkins
-systemctl start jenkins -y
+yum install jenkins -y
+systemctl start jenkins
 systemctl enable jenkins
 
 # Setting up jfrog artifactory
