@@ -26,5 +26,5 @@ Commit with the message "removing third.txt".
   git commit -m "removing third.txt"
 Check out your commits using git log. 
   git log
-  git remote add origin https://github.com/ShubhamPPatel/learn_git_again.git
+  git remote add origin https://github.com/your_username/learn_git_again.git
   git push origin master
