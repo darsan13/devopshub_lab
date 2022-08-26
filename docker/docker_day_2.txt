@@ -1,0 +1,153 @@
+  187  docker volume ls
+  188  docker volume create appdata
+  189  docker volume ls
+  190  docker volume inspect appdata
+  191  docker ps
+  192  docker images
+  193  docker run -itd --name=nginx-web --mount source=appdata,target=/app nginx:latest (here the actual soruce is /var/lib/docker/volumes/appdata)
+  194  docker ps
+  195  docker inspect nginx-web
+  206  docker ps
+  207  docker exec -it nginx-web bash
+	1  cd /app
+    2  ll
+    3  ls -al
+    4  touch testfile
+    5  echo "This is a test file to check docker volume" > testfile
+    6  ls -l
+	7 ctrl + d (to exit from the container)
+
+  213  sudo -i
+
+   24  cd /var/lib/docker/
+   25  ll
+   26  cd volumes/
+   27  ll
+   28  cd appdata/
+   29  ll
+   30  cd _data/
+   31  ll
+   32  cat testfile
+   33  pwd
+   34  ll
+   35  echo "another test file to see data created locally" > testfile1
+   36  exit
+
+  214  docker exec -it nginx-web bash
+	1  cd /app
+    2  ll
+    3  ls -al
+    4 ctrl + d (to exit from the container)
+
+  215  docker run -itd --name=nginx-web1 --mount source=appdata,target=/app nginx:latest
+  216  docker ps
+  217  docker exec -it nginx-web1 bash
+	1  cd /app
+    2  ll
+    3  ls -al
+    4 ctrl + d (to exit from the container)
+
+
+
+  236  docker run --name=webapp1 -d -P training/webapp python app.py
+  237  docker port webapp1
+  239  docker run --name=webapp2 -d -p 80:5000 training/webapp python app.py
+  240  docker ps
+  241  docker port webapp2
+  242  docker run --name=webapp3 -d -p 8080:5000 training/webapp python app.py
+  243  docker port webapp3
+
+  244  docker top webapp2
+  245  docker logs webapp2
+  246  docker logs -f webapp2
+
+
+Task1: 
+	Create a tomcat container with a name tomcat_webapp and make it available on ort number 8282. 
+	The tomcat container has the port number 8080 exposed inside the container.
+
+	save the changes and push the new image to your repository.
+
+Task2:
+
+	Create a docker volume jenkins_home. create a jenkins container available on port number 8080 on the docker host. 
+	Ensure the jenkins_home volume is mapped to /var/lib/jenkins in the container. 
+	Access and setup jenkins. ( image name of jenkins - jenkins/jenkins:latest )
+
+
+
+
+  260  docker network ls
+  261  ifconfig
+  262  docker network ls
+  263  docker network inspect bridge
+  264  docker network create devopshub
+  265  docker network ls
+  266  docker run -tid --network=devopshub --name=server01 centos:7 bash
+  267  docker run -tid --network=devopshub --name=server02 centos:7 bash
+  268  docker ps | grep centos
+
+  270  docker exec -it server02 bash
+    1  yum install nmap-ncat -y
+    2  nc -lp 1234
+
+  271  docker exec -it server01 bash
+    1  ping server02
+    2  yum whatprovides nc
+    3  yum install nmap-ncat -y
+    4  nc -v server02 1234
+	try to send some messages to server02
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
