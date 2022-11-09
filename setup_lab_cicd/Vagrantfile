@@ -4,7 +4,7 @@ $setup_server = <<SCRIPT
 
 # Install java, epel and utilities
 
-yum install -y java epel-release net-tools wget
+yum install -y java-11-openjdk epel-release net-tools wget
 
 # Enable root login in ssh configuration
 
