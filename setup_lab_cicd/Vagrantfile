@@ -75,7 +75,7 @@ $setup_docker = <<SCRIPT
 
 # Install network tools
 
-yum install -y epel-release net-tools wget
+yum install -y java-11-openjdk epel-release net-tools wget
 
 # Enable root login in ssh configuration
 
