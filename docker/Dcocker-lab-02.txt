@@ -58,7 +58,7 @@ docker swarm init --advertise-addr $(hostname -i)
 
 docker node ls
 
-git clone https://github.com/helpdevops/voting-app.git
+git clone https://github.com/DevOpsHubIN/flask-app.git
 
 docker stack deploy --compose-file=docker-stack.yml voting_stack
 
