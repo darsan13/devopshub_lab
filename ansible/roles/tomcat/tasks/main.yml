@@ -10,7 +10,7 @@
   yum:
     name: "{{ item }}"
     state: installed
-  with_items:
+  loop:
     - tomcat-webapps
     - tomcat-admin-webapps 
     - tomcat-docs-webapp
