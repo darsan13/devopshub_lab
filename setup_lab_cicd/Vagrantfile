@@ -100,9 +100,9 @@ SCRIPT
 
 
 Vagrant.configure("2") do |config|
-  config.vm.define "master" do |subconfig|
+  config.vm.define "controller" do |subconfig|
     subconfig.vm.box = "centos/7"
-	subconfig.vm.hostname = "jenkins-master"
+	subconfig.vm.hostname = "controller"
 #    subconfig.vm.network "public_network"
 	subconfig.vm.network "private_network", ip: "192.168.2.20"
     subconfig.vm.provision "shell", inline:$setup_server
