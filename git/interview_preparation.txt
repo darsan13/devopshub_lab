@@ -1,6 +1,33 @@
 What is git?
-What is ‘head’ in git and how many heads can be created in a repository?
+Its a version control software that allows us to manage the source code or application code or test automation code or infrastructure code.
+
+
+What is ‘head’ in git?
+Its a reference variable and this variable is called "Pointer", keeps track of the tip of current branch in the repository.
+Its a point to the palce where we're going to start recording next.
+its a tip of the current branch in our repository.
+Its also called Active or Current branch.
+HEAD has the ability to move back and forth to different branches.
+(.git/refs/heads/)
+
+How many heads can be created in a repository?
+A repository can contain any no.of HEADs
+But at any given time one head is selected as "Current Head"
+There will be only one Head reference in your local repository.
+
+What is a branch in GIT?
+Branch represents an independent line of development.
+Its way to request a brand new working directory, staging area, and master
+New commits are recorded in the history of branch
+
+
 What is the purpose of branching in GIT?
+To maintain stability while isolated changes are made to code
+To be entirely different or isolated from the main stable master branch. 
+Branches give you the freedom to independently work on different modules
+and merge the modules when you finish developing them.
+
+
 What is a ‘conflict’ in git?
 How can conflict in git resolved?
 What is git merging
