@@ -2,7 +2,7 @@
 
 $setup_server = <<SCRIPT
 
-# Install java, epel and utilities
+# Install java-11-openjdk, epel and utilities
 
 yum install -y java-11-openjdk epel-release net-tools wget
 
@@ -17,10 +17,11 @@ service sshd restart
 yum install -y git ansible
 
 sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo --no-check-certificate
-rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-yum install jenkins -y
-systemctl start jenkins
-systemctl enable jenkins
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum upgrade -y
+sudo yum install jenkins -y
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
 
 # Setting up jfrog artifactory
 # Install jfrog
@@ -75,7 +76,7 @@ $setup_docker = <<SCRIPT
 
 # Install network tools
 
-yum install -y java-11-openjdk epel-release net-tools wget
+yum install -y epel-release net-tools wget
 
 # Enable root login in ssh configuration
 
@@ -86,8 +87,6 @@ service sshd restart
 # Install docker
 
 useradd docker
-
-chmod -aG docker vagrant
 
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
@@ -101,7 +100,7 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
   config.vm.define "controller" do |subconfig|
-    subconfig.vm.box = "centos/7"
+    subconfig.vm.box = "boxomatic/centos-stream-9"
 	subconfig.vm.hostname = "controller"
 #    subconfig.vm.network "public_network"
 	subconfig.vm.network "private_network", ip: "192.168.2.20"
@@ -114,7 +113,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "node1" do |subconfig|
-    subconfig.vm.box = "centos/7"
+    subconfig.vm.box = "boxomatic/centos-stream-9"
 	subconfig.vm.hostname = "node1"
 	subconfig.vm.network "private_network", ip: "192.168.2.30"
 	subconfig.vm.provision "shell", inline:$setup_client
@@ -125,7 +124,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "node2" do |subconfig|
-    subconfig.vm.box = "centos/7"
+    subconfig.vm.box = "boxomatic/centos-stream-9"
 	subconfig.vm.hostname = "node2"
 	subconfig.vm.network "private_network", ip: "192.168.2.40"
 	subconfig.vm.provision "shell", inline:$setup_docker
@@ -135,4 +134,3 @@ Vagrant.configure("2") do |config|
 	end
   end
 end
-
